@@ -1,7 +1,0 @@
-@layer reset, base, tokens, recipes, utilities;
-
-@layer base {
-  body {
-    font-family: 'Inter Variable', sans-serif;
-  }
-}
