@@ -8,7 +8,7 @@ def llama_gen(title: str, section: str):
   model="meta-llama/Llama-3-8b-chat-hf",
   messages=[{"role": "user", "content": prompt}],
   stream=True,
-)pip install together
+)
     response = ""
     for chunk in stream:
         response += chunk.choices[0].delta.content or ""
