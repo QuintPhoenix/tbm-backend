@@ -36,6 +36,10 @@ async def mistral(body: LLMRequest):
 async def falcon(body: LLMRequest):
     return llms.falcon_gen(body.title, body.section)
 
+@app.post("/llama")
+async def falcon(body: LLMRequest):
+    return llms.llama_gen(body.title, body.section)
+
 @app.get("/images/pexels")
 async def pexels(location: str | None = "Goa"):
     return images.get_pexels(location)
