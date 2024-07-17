@@ -5,6 +5,7 @@ import requests
 import uuid
 from htmldocx import HtmlToDocx
 import markdown
+from os import environ
 
 def get_para_data(output_doc_name, paragraph):
     """
@@ -28,7 +29,7 @@ def get_para_data(output_doc_name, paragraph):
     output_para.paragraph_format.alignment = paragraph.paragraph_format.alignment
 
 
-path_to_doc_folder = "C:\\Users\\2008s\\Desktop\\PS\\web\\tbm-backend\\tbm-backend\\docs\\generated_docs\\"
+path_to_doc_folder = environ.get("GENERATED_DOC_PATH")
 
 def generate_doc(title : str, imageLinks : list, body : dict) -> str:
     doc = Document()

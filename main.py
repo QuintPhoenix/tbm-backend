@@ -5,6 +5,7 @@ import llms
 import images
 import docs.scripts as doc
 from fastapi.responses import FileResponse
+from os import environ
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -58,5 +59,6 @@ async def pixabay(location: str | None = "Goa"):
 
 @app.post("/generate")
 async def generate(body : wordDocRequest):
-    doc_path = doc.generate_doc(body.title,body.imageLinks,body.body)
-    return FileResponse(path=("./docs/generated_docs/" + doc_path))
+    doc_name = doc.generate_doc(body.title,body.imageLinks,body.body)
+    generated_doc_path = environ.get("GENERATED_DOC_PATH")
+    return FileResponse(path=(generated_doc_path + doc_name))
