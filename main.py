@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import llms
 import images
+import docs.scripts as doc
+from fastapi.responses import FileResponse
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -19,6 +21,12 @@ app.add_middleware(
 class LLMRequest(BaseModel):
     title: str
     section: str
+
+class wordDocRequest(BaseModel):
+    title : str
+    imageLinks : list
+    body : dict
+
 
 @app.post("/gemini")
 async def gemini(body: LLMRequest):
@@ -47,3 +55,8 @@ async def pexels(location: str | None = "Goa"):
 @app.get("/images/pixabay")
 async def pixabay(location: str | None = "Goa"):
     return images.get_pixabay(location)
+
+@app.post("/generate")
+async def generate(body : wordDocRequest):
+    doc_path = doc.generate_doc(body.title,body.imageLinks,body.body)
+    return FileResponse(path=("./docs/generated_docs/" + doc_path))
