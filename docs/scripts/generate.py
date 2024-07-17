@@ -31,7 +31,7 @@ def get_para_data(output_doc_name, paragraph):
 
 path_to_doc_folder = environ.get("GENERATED_DOC_PATH")
 
-def generate_doc(title : str, imageLinks : list, body : dict) -> str:
+def generate_doc(title : str, imageLinks : list, body : list) -> str:
     doc = Document()
     doc.add_heading(title,0).alignment = 1
     
@@ -50,8 +50,8 @@ def generate_doc(title : str, imageLinks : list, body : dict) -> str:
         i = i + 1
     
     for key in body :
-        doc.add_heading(key)
-        html_string = markdown.markdown(body[key])
+        doc.add_heading(key[0])
+        html_string = markdown.markdown(key[1])
         new_parser = HtmlToDocx()
         md_doc = new_parser.parse_html_string(html_string)
         for para in md_doc.paragraphs:
