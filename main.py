@@ -26,7 +26,7 @@ class LLMRequest(BaseModel):
 class wordDocRequest(BaseModel):
     title : str
     imageLinks : list
-    body : dict
+    body : list
 
 
 @app.post("/gemini")
